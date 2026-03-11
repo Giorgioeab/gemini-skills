@@ -12,6 +12,25 @@ A library of AI agent skills for the Gemini CLI and compatible agent platforms. 
 
 ## Installation
 
+### Using npm (recommended)
+
+```bash
+npx @giorgioeab/gemini-skills install
+```
+
+Installs to `~/.agents/skills/antigravity-kit/`. To update an existing installation:
+
+```bash
+npx @giorgioeab/gemini-skills install --force
+```
+
+Other commands:
+
+```bash
+npx @giorgioeab/gemini-skills status      # Check installation
+npx @giorgioeab/gemini-skills uninstall   # Remove
+```
+
 ### Using [Gemini CLI](https://github.com/google-gemini/gemini-cli)
 
 ```bash
@@ -99,6 +118,8 @@ AI: 🤖 Using @frontend-specialist...
 ## Repo Structure
 
 ```
+├── bin/
+│   └── cli.js             # npm CLI (install/uninstall/status)
 ├── GEMINI.md              # Entry point (imports .agent/rules/GEMINI.md)
 ├── gemini-extension.json  # Extension metadata for Gemini CLI
 ├── skills/
@@ -122,6 +143,7 @@ AI: 🤖 Using @frontend-specialist...
 
 | Platform | How it works |
 |----------|-------------|
+| **npm / npx** | Runs `npx @giorgioeab/gemini-skills install` → copies to `~/.agents/skills/antigravity-kit/` |
 | **Gemini CLI / Antigravity** | Reads `GEMINI.md` → imports `.agent/rules/GEMINI.md` + `.agent/ARCHITECTURE.md` |
 | **VS Code / GitHub Copilot** | Discovers `skills/antigravity-kit/SKILL.md` via Skills CLI |
 | **Cursor** | Same as VS Code — uses Skills CLI |

@@ -1,5 +1,5 @@
 {
-  "name": "gemini-skills",
+  "name": "@giorgioeab/gemini-skills",
   "version": "2.1.0",
   "description": "20 Specialist Agents, 37 Domain Skills, 11 Slash Command Workflows for AI-powered coding assistance",
   "repository": {
@@ -10,6 +10,16 @@
   "bugs": {
     "url": "https://github.com/Giorgioeab/gemini-skills/issues"
   },
+  "bin": {
+    "gemini-skills": "bin/cli.js"
+  },
+  "files": [
+    "bin/",
+    ".agent/",
+    "skills/",
+    "GEMINI.md",
+    "gemini-extension.json"
+  ],
   "keywords": [
     "skills",
     "agent-skills",
