@@ -1,22 +1,24 @@
 {
-  "name": "antigravity-kit",
-  "version": "2.0.0",
-  "description": "AI Agent templates - Skills, Agents, and Workflows for enhanced coding assistance",
+  "name": "gemini-skills",
+  "version": "2.1.0",
+  "description": "20 Specialist Agents, 37 Domain Skills, 11 Slash Command Workflows for AI-powered coding assistance",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vudovn/antigravity-kit.git"
+    "url": "git+https://github.com/Giorgioeab/gemini-skills.git"
   },
-  "homepage": "https://github.com/vudovn/antigravity-kit#readme",
+  "homepage": "https://github.com/Giorgioeab/gemini-skills#readme",
   "bugs": {
-    "url": "https://github.com/vudovn/antigravity-kit/issues"
+    "url": "https://github.com/Giorgioeab/gemini-skills/issues"
   },
   "keywords": [
+    "skills",
+    "agent-skills",
+    "gemini",
     "antigravity",
     "ai",
     "agent",
-    "gemini",
-    "skills",
-    "templates"
+    "slash-commands",
+    "workflows"
   ],
   "author": "vudovn",
   "license": "MIT"

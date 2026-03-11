@@ -1,6 +1,10 @@
-# Ignore
+# Dependencies
 node_modules/
+
+# Temp
 .temp_ag_kit/
+
+# Dev
 antigravity-doc
 tests
 others
