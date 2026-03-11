@@ -3,18 +3,25 @@
 const fs = require("fs");
 const path = require("path");
 
-const AGENTS_DIR = path.join(
-  process.env.HOME || process.env.USERPROFILE,
-  ".agents",
-  "skills",
-  "antigravity-kit"
-);
-
+const HOME = process.env.HOME || process.env.USERPROFILE;
+const SKILLS_ROOT = path.join(HOME, ".agents", "skills");
 const PACKAGE_ROOT = path.resolve(__dirname, "..");
-const SOURCE_AGENT = path.join(PACKAGE_ROOT, ".agent");
-const SOURCE_SKILLS = path.join(PACKAGE_ROOT, "skills", "antigravity-kit");
-const SOURCE_GEMINI = path.join(PACKAGE_ROOT, "GEMINI.md");
-const SOURCE_EXTENSION = path.join(PACKAGE_ROOT, "gemini-extension.json");
+const SOURCE_SKILLS = path.join(PACKAGE_ROOT, "skills");
+
+const SKILL_NAMES = [
+  "antigravity-core",
+  "antigravity-brainstorm",
+  "antigravity-create",
+  "antigravity-debug",
+  "antigravity-deploy",
+  "antigravity-enhance",
+  "antigravity-orchestrate",
+  "antigravity-plan",
+  "antigravity-preview",
+  "antigravity-status",
+  "antigravity-test",
+  "antigravity-ui-ux",
+];
 
 const command = process.argv[2];
 
@@ -32,87 +39,113 @@ function copyDirSync(src, dest) {
 }
 
 function install() {
-  console.log("📦 Installing gemini-skills to ~/.agents/skills/antigravity-kit/\n");
+  const force = process.argv.includes("--force");
 
-  if (fs.existsSync(AGENTS_DIR)) {
-    console.log("⚠️  Directory already exists. Use --force to overwrite.");
-    if (!process.argv.includes("--force")) {
-      process.exit(1);
+  console.log("📦 Installing gemini-skills to ~/.agents/skills/\n");
+
+  // Install each skill as a separate folder
+  for (const name of SKILL_NAMES) {
+    const dest = path.join(SKILLS_ROOT, name);
+    if (fs.existsSync(dest)) {
+      if (!force) {
+        console.log(`  ⚠️  ${name}/ exists (use --force to overwrite)`);
+        continue;
+      }
+      fs.rmSync(dest, { recursive: true, force: true });
     }
-    console.log("🔄 Overwriting existing installation...\n");
-    fs.rmSync(AGENTS_DIR, { recursive: true, force: true });
+    fs.mkdirSync(dest, { recursive: true });
+
+    // Copy SKILL.md
+    const skillSrc = path.join(SOURCE_SKILLS, name, "SKILL.md");
+    fs.copyFileSync(skillSrc, path.join(dest, "SKILL.md"));
+
+    // Copy .agent/ into antigravity-core only (shared core)
+    if (name === "antigravity-core") {
+      const agentSrc = path.join(PACKAGE_ROOT, ".agent");
+      copyDirSync(agentSrc, path.join(dest, ".agent"));
+      console.log(`  ✅ ${name}/ (SKILL.md + .agent/)`);
+    } else {
+      console.log(`  ✅ ${name}/ (SKILL.md)`);
+    }
   }
 
-  fs.mkdirSync(AGENTS_DIR, { recursive: true });
-
-  // Copy .agent/ → ~/.agents/skills/antigravity-kit/.agent/
-  const destAgent = path.join(AGENTS_DIR, ".agent");
-  console.log("  → Copying .agent/ (20 agents, 37 skills, 11 workflows)");
-  copyDirSync(SOURCE_AGENT, destAgent);
-
-  // Copy skills/antigravity-kit/SKILL.md → ~/.agents/skills/antigravity-kit/SKILL.md
-  console.log("  → Copying SKILL.md");
-  fs.copyFileSync(
-    path.join(SOURCE_SKILLS, "SKILL.md"),
-    path.join(AGENTS_DIR, "SKILL.md")
-  );
-
-  // Copy GEMINI.md
-  console.log("  → Copying GEMINI.md");
-  fs.copyFileSync(SOURCE_GEMINI, path.join(AGENTS_DIR, "GEMINI.md"));
-
-  // Copy gemini-extension.json
-  console.log("  → Copying gemini-extension.json");
-  fs.copyFileSync(SOURCE_EXTENSION, path.join(AGENTS_DIR, "gemini-extension.json"));
-
-  console.log("\n✅ Installed successfully!");
-  console.log(`   Location: ${AGENTS_DIR}`);
-  console.log("\n📁 Contents:");
-  console.log("   .agent/agents/    → 20 specialist agents");
-  console.log("   .agent/skills/    → 37 domain skills");
-  console.log("   .agent/workflows/ → 11 slash commands (/plan, /debug, etc.)");
-  console.log("   .agent/rules/     → Core rules & routing");
-  console.log("   .agent/scripts/   → Validation scripts");
-  console.log("   SKILL.md          → Skill metadata");
-  console.log("   GEMINI.md         → Gemini CLI entry point");
+  console.log("\n✅ Installed 12 skills successfully!");
+  console.log(`   Location: ${SKILLS_ROOT}/antigravity-*/\n`);
+  console.log("📁 Skills installed:");
+  console.log("   antigravity-core        → Agent routing, Socratic Gate, clean code");
+  console.log("   antigravity-brainstorm  → /brainstorm workflow");
+  console.log("   antigravity-create      → /create workflow");
+  console.log("   antigravity-debug       → /debug workflow");
+  console.log("   antigravity-deploy      → /deploy workflow");
+  console.log("   antigravity-enhance     → /enhance workflow");
+  console.log("   antigravity-orchestrate → /orchestrate workflow");
+  console.log("   antigravity-plan        → /plan workflow");
+  console.log("   antigravity-preview     → /preview workflow");
+  console.log("   antigravity-status      → /status workflow");
+  console.log("   antigravity-test        → /test workflow");
+  console.log("   antigravity-ui-ux       → /ui-ux-pro-max workflow");
 }
 
 function uninstall() {
-  if (!fs.existsSync(AGENTS_DIR)) {
-    console.log("ℹ️  Nothing to remove. gemini-skills is not installed.");
-    process.exit(0);
+  let removed = 0;
+  for (const name of SKILL_NAMES) {
+    const dest = path.join(SKILLS_ROOT, name);
+    if (fs.existsSync(dest)) {
+      fs.rmSync(dest, { recursive: true, force: true });
+      removed++;
+    }
   }
-  fs.rmSync(AGENTS_DIR, { recursive: true, force: true });
-  console.log("🗑️  Removed ~/.agents/skills/antigravity-kit/");
+  if (removed === 0) {
+    console.log("ℹ️  Nothing to remove. No antigravity skills installed.");
+  } else {
+    console.log(`🗑️  Removed ${removed} antigravity skill(s) from ~/.agents/skills/`);
+  }
 }
 
 function status() {
-  if (fs.existsSync(AGENTS_DIR)) {
-    const agentDir = path.join(AGENTS_DIR, ".agent");
-    const agents = fs.existsSync(path.join(agentDir, "agents"))
-      ? fs.readdirSync(path.join(agentDir, "agents")).length
-      : 0;
-    const skills = fs.existsSync(path.join(agentDir, "skills"))
-      ? fs.readdirSync(path.join(agentDir, "skills")).length
-      : 0;
-    const workflows = fs.existsSync(path.join(agentDir, "workflows"))
-      ? fs.readdirSync(path.join(agentDir, "workflows")).length
-      : 0;
-    console.log(`✅ Installed at ${AGENTS_DIR}`);
-    console.log(`   Agents: ${agents} | Skills: ${skills} | Workflows: ${workflows}`);
-  } else {
-    console.log("❌ Not installed. Run: npx @giorgioeab/gemini-skills install");
+  let installed = 0;
+  let missing = 0;
+  for (const name of SKILL_NAMES) {
+    const dest = path.join(SKILLS_ROOT, name);
+    if (fs.existsSync(dest)) {
+      installed++;
+      console.log(`  ✅ ${name}`);
+    } else {
+      missing++;
+      console.log(`  ❌ ${name}`);
+    }
   }
+  console.log(`\n${installed}/12 skills installed.`);
+  if (missing > 0) {
+    console.log("Run: npx @giorgioeab/gemini-skills install --force");
+  }
+}
+
+function list() {
+  console.log("Available skills:\n");
+  console.log("  antigravity-core         Agent routing, Socratic Gate, clean code");
+  console.log("  antigravity-brainstorm   /brainstorm — explore ideas before coding");
+  console.log("  antigravity-create       /create — create new applications");
+  console.log("  antigravity-debug        /debug — systematic bug investigation");
+  console.log("  antigravity-deploy       /deploy — production deployment");
+  console.log("  antigravity-enhance      /enhance — improve existing code");
+  console.log("  antigravity-orchestrate  /orchestrate — multi-agent coordination");
+  console.log("  antigravity-plan         /plan — project planning (no code)");
+  console.log("  antigravity-preview      /preview — local dev server management");
+  console.log("  antigravity-status       /status — project progress report");
+  console.log("  antigravity-test         /test — generate and run tests");
+  console.log("  antigravity-ui-ux        /ui-ux-pro-max — design with 50+ styles");
 }
 
 function help() {
   console.log(`
-gemini-skills — AI Agent Skills Pack
+gemini-skills — 12 AI Agent Skills (20 agents, 37 domain skills, 11 slash commands)
 
 Usage:
-  npx @giorgioeab/gemini-skills install [--force]   Install to ~/.agents/
-  npx @giorgioeab/gemini-skills uninstall            Remove from ~/.agents/
-  npx @giorgioeab/gemini-skills status               Check installation
+  npx @giorgioeab/gemini-skills install [--force]   Install 12 skills to ~/.agents/skills/
+  npx @giorgioeab/gemini-skills uninstall            Remove all antigravity skills
+  npx @giorgioeab/gemini-skills status               Check which skills are installed
+  npx @giorgioeab/gemini-skills list                 List available skills
   npx @giorgioeab/gemini-skills help                 Show this help
 
 Options:
@@ -130,6 +163,10 @@ switch (command) {
     break;
   case "status":
     status();
+    break;
+  case "list":
+  case "ls":
+    list();
     break;
   case "help":
   case "--help":
