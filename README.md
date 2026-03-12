@@ -31,6 +31,8 @@ npx @giorgioeab/gemini-skills install
 
 Installs 12 skills to `~/.agents/skills/`. To update an existing installation:
 
+Also mirrors the same skills to `~/.gemini/antigravity/skills/`.
+
 ```bash
 npx @giorgioeab/gemini-skills install --force
 ```
@@ -165,7 +167,7 @@ AI: 🤖 Using @frontend-specialist...
 
 | Platform | How it works |
 |----------|-------------|
-| **npm / npx** | Runs `npx @giorgioeab/gemini-skills install` → installs 12 skills to `~/.agents/skills/` |
+| **npm / npx** | Runs `npx @giorgioeab/gemini-skills install` → installs 12 skills to `~/.agents/skills/` and `~/.gemini/antigravity/skills/` |
 | **Gemini CLI / Antigravity** | Reads `GEMINI.md` → imports `.agent/rules/GEMINI.md` + `.agent/ARCHITECTURE.md` |
 | **VS Code / GitHub Copilot** | Discovers `skills/*/SKILL.md` via Skills CLI |
 | **Cursor** | Same as VS Code — uses Skills CLI |

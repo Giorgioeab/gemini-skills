@@ -4,7 +4,10 @@ const fs = require("fs");
 const path = require("path");
 
 const HOME = process.env.HOME || process.env.USERPROFILE;
-const SKILLS_ROOT = path.join(HOME, ".agents", "skills");
+const SKILLS_ROOTS = [
+  path.join(HOME, ".agents", "skills"),
+  path.join(HOME, ".gemini", "antigravity", "skills"),
+];
 const PACKAGE_ROOT = path.resolve(__dirname, "..");
 const SOURCE_SKILLS = path.join(PACKAGE_ROOT, "skills");
 
@@ -41,36 +44,49 @@ function copyDirSync(src, dest) {
 function install() {
   const force = process.argv.includes("--force");
 
-  console.log("📦 Installing gemini-skills to ~/.agents/skills/\n");
+  console.log("📦 Installing gemini-skills to:");
+  for (const root of SKILLS_ROOTS) {
+    console.log(`   - ${root}`);
+  }
+  console.log("");
 
-  // Install each skill as a separate folder
-  for (const name of SKILL_NAMES) {
-    const dest = path.join(SKILLS_ROOT, name);
-    if (fs.existsSync(dest)) {
-      if (!force) {
-        console.log(`  ⚠️  ${name}/ exists (use --force to overwrite)`);
-        continue;
+  for (const root of SKILLS_ROOTS) {
+    console.log(`📁 Target: ${root}`);
+
+    // Install each skill as a separate folder
+    for (const name of SKILL_NAMES) {
+      const dest = path.join(root, name);
+      if (fs.existsSync(dest)) {
+        if (!force) {
+          console.log(`  ⚠️  ${name}/ exists (use --force to overwrite)`);
+          continue;
+        }
+        fs.rmSync(dest, { recursive: true, force: true });
       }
-      fs.rmSync(dest, { recursive: true, force: true });
-    }
-    fs.mkdirSync(dest, { recursive: true });
+      fs.mkdirSync(dest, { recursive: true });
 
-    // Copy SKILL.md
-    const skillSrc = path.join(SOURCE_SKILLS, name, "SKILL.md");
-    fs.copyFileSync(skillSrc, path.join(dest, "SKILL.md"));
+      // Copy SKILL.md
+      const skillSrc = path.join(SOURCE_SKILLS, name, "SKILL.md");
+      fs.copyFileSync(skillSrc, path.join(dest, "SKILL.md"));
 
-    // Copy .agent/ into core only (shared core)
-    if (name === "core") {
-      const agentSrc = path.join(PACKAGE_ROOT, ".agent");
-      copyDirSync(agentSrc, path.join(dest, ".agent"));
-      console.log(`  ✅ ${name}/ (SKILL.md + .agent/)`);
-    } else {
-      console.log(`  ✅ ${name}/ (SKILL.md)`);
+      // Copy .agent/ into core only (shared core)
+      if (name === "core") {
+        const agentSrc = path.join(PACKAGE_ROOT, ".agent");
+        copyDirSync(agentSrc, path.join(dest, ".agent"));
+        console.log(`  ✅ ${name}/ (SKILL.md + .agent/)`);
+      } else {
+        console.log(`  ✅ ${name}/ (SKILL.md)`);
+      }
     }
+    console.log("");
   }
 
   console.log("\n✅ Installed 12 skills successfully!");
-  console.log(`   Location: ${SKILLS_ROOT}/\n`);
+  console.log("   Locations:");
+  for (const root of SKILLS_ROOTS) {
+    console.log(`   - ${root}/`);
+  }
+  console.log("");
   console.log("📁 Skills installed:");
   console.log("   core        → Agent routing, Socratic Gate, clean code");
   console.log("   brainstorm  → /brainstorm workflow");
@@ -87,37 +103,44 @@ function install() {
 }
 
 function uninstall() {
-  let removed = 0;
-  for (const name of SKILL_NAMES) {
-    const dest = path.join(SKILLS_ROOT, name);
-    if (fs.existsSync(dest)) {
-      fs.rmSync(dest, { recursive: true, force: true });
-      removed++;
+  let removedTotal = 0;
+  for (const root of SKILLS_ROOTS) {
+    let removed = 0;
+    for (const name of SKILL_NAMES) {
+      const dest = path.join(root, name);
+      if (fs.existsSync(dest)) {
+        fs.rmSync(dest, { recursive: true, force: true });
+        removed++;
+      }
     }
+    removedTotal += removed;
+    console.log(`🗑️  Removed ${removed} skill(s) from ${root}/`);
   }
-  if (removed === 0) {
+
+  if (removedTotal === 0) {
     console.log("ℹ️  Nothing to remove. No gemini-skills installed.");
-  } else {
-    console.log(`🗑️  Removed ${removed} skill(s) from ~/.agents/skills/`);
   }
 }
 
 function status() {
-  let installed = 0;
-  let missing = 0;
-  for (const name of SKILL_NAMES) {
-    const dest = path.join(SKILLS_ROOT, name);
-    if (fs.existsSync(dest)) {
-      installed++;
-      console.log(`  ✅ ${name}`);
-    } else {
-      missing++;
-      console.log(`  ❌ ${name}`);
+  for (const root of SKILLS_ROOTS) {
+    let installed = 0;
+    let missing = 0;
+    console.log(`\n📁 ${root}`);
+    for (const name of SKILL_NAMES) {
+      const dest = path.join(root, name);
+      if (fs.existsSync(dest)) {
+        installed++;
+        console.log(`  ✅ ${name}`);
+      } else {
+        missing++;
+        console.log(`  ❌ ${name}`);
+      }
     }
-  }
-  console.log(`\n${installed}/12 skills installed.`);
-  if (missing > 0) {
-    console.log("Run: npx @giorgioeab/gemini-skills install --force");
+    console.log(`${installed}/12 skills installed.`);
+    if (missing > 0) {
+      console.log("Run: npx @giorgioeab/gemini-skills install --force");
+    }
   }
 }
 
@@ -142,7 +165,7 @@ function help() {
 gemini-skills — 12 AI Agent Skills (20 agents, 37 domain skills, 11 slash commands)
 
 Usage:
-  npx @giorgioeab/gemini-skills install [--force]   Install 12 skills to ~/.agents/skills/
+  npx @giorgioeab/gemini-skills install [--force]   Install 12 skills to ~/.agents/skills/ and ~/.gemini/antigravity/skills/
   npx @giorgioeab/gemini-skills uninstall            Remove all skills
   npx @giorgioeab/gemini-skills status               Check which skills are installed
   npx @giorgioeab/gemini-skills list                 List available skills
