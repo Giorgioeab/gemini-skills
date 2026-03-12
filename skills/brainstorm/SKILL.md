@@ -1,6 +1,6 @@
 ---
 name: brainstorm
-description: Use this skill when exploring ideas, comparing approaches, or evaluating options before implementation. Provides structured brainstorming with 3+ options, pros/cons analysis, effort estimation, and a final recommendation. Triggers with /brainstorm or when the user needs to decide between multiple approaches for architecture, tech stack, design patterns, or implementation strategies.
+description: Use esta skill para explorar ideias e comparar opcoes antes de implementar.
 ---
 
 # /brainstorm — Structured Idea Exploration

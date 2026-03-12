@@ -1,6 +1,6 @@
 ---
 name: create
-description: Use this skill when creating a new application, project, or feature from scratch. Triggers with /create. Starts an interactive dialogue to understand requirements, plans the tech stack and file structure using the project-planner agent, builds using app-builder with specialist agents (database-architect, backend-specialist, frontend-specialist), and auto-starts a preview server. Handles blog sites, e-commerce apps, dashboards, landing pages, and any new project scaffolding.
+description: Use esta skill para criar apps e projetos novos com planejamento e execucao guiada.
 ---
 
 # /create — Create Application

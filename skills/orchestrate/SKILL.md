@@ -1,6 +1,6 @@
 ---
 name: orchestrate
-description: Use this skill when coordinating multiple specialist agents for complex, multi-domain tasks. Triggers with /orchestrate. Requires minimum 3 different agents. Provides 2-phase orchestration (Planning → Implementation), agent selection matrix by task type, mandatory user approval checkpoint between phases, context passing protocol between agents, and verification scripts. Use for full-stack builds, comprehensive reviews, security audits, or any task spanning multiple domains (frontend + backend + testing, etc.).
+description: Use esta skill para coordenar varios agentes em tarefas complexas e multidominio.
 ---
 
 # /orchestrate — Multi-Agent Coordination

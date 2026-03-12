@@ -1,6 +1,6 @@
 ---
 name: core
-description: Use this skill for AI agent routing, request classification, and applying coding standards. Provides the Socratic Gate protocol (ask before coding), intelligent agent auto-selection based on request domain, universal clean code rules, file dependency awareness, and tiered response system (Question → Survey → Simple Code → Complex Code → Design → Slash Command). Activates automatically for any coding assistance request.
+description: Use esta skill para roteamento de agentes, classificacao de pedidos e regras globais.
 ---
 
 # Antigravity Core — Agent Routing & Universal Rules

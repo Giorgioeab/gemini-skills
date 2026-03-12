@@ -1,6 +1,6 @@
 ---
 name: status
-description: Use this skill when checking project status, viewing progress, or getting an overview of the current state of development. Triggers with /status. Shows project info (name, path, tech stack, features), agent status board (running, completed, pending), file statistics, and preview server health. Use when the user asks "what's the status", "where are we", or wants a progress report.
+description: Use esta skill para ver status do projeto, progresso e saude geral do fluxo.
 ---
 
 # /status — Show Status

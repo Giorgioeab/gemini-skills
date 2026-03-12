@@ -1,6 +1,6 @@
 ---
 name: debug
-description: Use this skill when debugging issues, investigating errors, fixing bugs, or diagnosing unexpected behavior. Triggers with /debug. Provides systematic problem investigation with hypothesis generation, ordered-by-likelihood testing, root cause analysis, fix implementation, and prevention measures. Handles API errors, form submission failures, login issues, data not saving, and any runtime or logic errors.
+description: Use esta skill para investigar erros, achar causa raiz e corrigir bugs.
 ---
 
 # /debug — Systematic Problem Investigation
