@@ -1,5 +1,5 @@
 ---
-name: antigravity-enhance
+name: enhance
 description: Use this skill when adding features to or improving an existing application. Triggers with /enhance. Handles iterative development — adding dark mode, building admin panels, integrating payment systems, making pages responsive, adding search features, and any modification to existing code. Loads project state, plans changes, presents impact summary, applies changes with relevant specialist agents, and updates the preview.
 ---
 

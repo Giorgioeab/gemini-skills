@@ -1,5 +1,5 @@
 ---
-name: antigravity-ui-ux
+name: ui-ux
 description: Use this skill when designing UI/UX, creating landing pages, building dashboards, implementing design systems, or choosing styles, colors, fonts, and layouts. Triggers with /ui-ux-pro-max. Provides AI-powered design intelligence with 50+ styles, 97 color palettes, 57 font pairings, 99 UX guidelines, and 25 chart types across 10 technology stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native, Flutter, shadcn, Jetpack Compose, HTML+Tailwind). Includes automated design system generation, anti-pattern detection, accessibility checks, and a pre-delivery checklist.
 ---
 

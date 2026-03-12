@@ -8,18 +8,18 @@ A library of AI agent skills for the Gemini CLI and compatible agent platforms. 
 
 | Skill | Command | Description |
 |-------|---------|-------------|
-| antigravity-core | — | Agent routing, Socratic Gate, request classifier, clean code rules |
-| antigravity-brainstorm | `/brainstorm` | Explore ideas with 3+ options, pros/cons, and recommendations |
-| antigravity-create | `/create` | Create new applications with app-builder and specialist agents |
-| antigravity-debug | `/debug` | Systematic bug investigation with hypothesis-driven analysis |
-| antigravity-deploy | `/deploy` | Production deployment with pre-flight checklist and rollback |
-| antigravity-enhance | `/enhance` | Add features or improve existing code iteratively |
-| antigravity-orchestrate | `/orchestrate` | Multi-agent coordination (min. 3 agents) for complex tasks |
-| antigravity-plan | `/plan` | Project planning and task breakdown (no code) |
-| antigravity-preview | `/preview` | Local dev server management |
-| antigravity-status | `/status` | Project and agent progress report |
-| antigravity-test | `/test` | Generate and run tests (Jest, Vitest, Playwright) |
-| antigravity-ui-ux | `/ui-ux-pro-max` | Design with 50+ styles, 97 palettes, 57 font pairings |
+| core | — | Agent routing, Socratic Gate, request classifier, clean code rules |
+| brainstorm | `/brainstorm` | Explore ideas with 3+ options, pros/cons, and recommendations |
+| create | `/create` | Create new applications with app-builder and specialist agents |
+| debug | `/debug` | Systematic bug investigation with hypothesis-driven analysis |
+| deploy | `/deploy` | Production deployment with pre-flight checklist and rollback |
+| enhance | `/enhance` | Add features or improve existing code iteratively |
+| orchestrate | `/orchestrate` | Multi-agent coordination (min. 3 agents) for complex tasks |
+| plan | `/plan` | Project planning and task breakdown (no code) |
+| preview | `/preview` | Local dev server management |
+| status | `/status` | Project and agent progress report |
+| test | `/test` | Generate and run tests (Jest, Vitest, Playwright) |
+| ui-ux | `/ui-ux-pro-max` | Design with 50+ styles, 97 palettes, 57 font pairings |
 
 ## Installation
 
@@ -29,7 +29,7 @@ A library of AI agent skills for the Gemini CLI and compatible agent platforms. 
 npx @giorgioeab/gemini-skills install
 ```
 
-Installs 12 skills to `~/.agents/skills/antigravity-*/`. To update an existing installation:
+Installs 12 skills to `~/.agents/skills/`. To update an existing installation:
 
 ```bash
 npx @giorgioeab/gemini-skills install --force
@@ -40,7 +40,7 @@ Other commands:
 ```bash
 npx @giorgioeab/gemini-skills status      # Check which skills are installed
 npx @giorgioeab/gemini-skills list        # List available skills
-npx @giorgioeab/gemini-skills uninstall   # Remove all antigravity skills
+npx @giorgioeab/gemini-skills uninstall   # Remove all skills
 ```
 
 ### Using [Gemini CLI](https://github.com/google-gemini/gemini-cli)
@@ -135,18 +135,18 @@ AI: 🤖 Using @frontend-specialist...
 ├── GEMINI.md                     # Entry point for Gemini CLI
 ├── gemini-extension.json         # Extension metadata
 ├── skills/                       # 12 modular skills
-│   ├── antigravity-core/SKILL.md       # Agent routing, Socratic Gate
-│   ├── antigravity-brainstorm/SKILL.md # /brainstorm
-│   ├── antigravity-create/SKILL.md     # /create
-│   ├── antigravity-debug/SKILL.md      # /debug
-│   ├── antigravity-deploy/SKILL.md     # /deploy
-│   ├── antigravity-enhance/SKILL.md    # /enhance
-│   ├── antigravity-orchestrate/SKILL.md# /orchestrate
-│   ├── antigravity-plan/SKILL.md       # /plan
-│   ├── antigravity-preview/SKILL.md    # /preview
-│   ├── antigravity-status/SKILL.md     # /status
-│   ├── antigravity-test/SKILL.md       # /test
-│   └── antigravity-ui-ux/SKILL.md      # /ui-ux-pro-max
+│   ├── core/SKILL.md       # Agent routing, Socratic Gate
+│   ├── brainstorm/SKILL.md # /brainstorm
+│   ├── create/SKILL.md     # /create
+│   ├── debug/SKILL.md      # /debug
+│   ├── deploy/SKILL.md     # /deploy
+│   ├── enhance/SKILL.md    # /enhance
+│   ├── orchestrate/SKILL.md# /orchestrate
+│   ├── plan/SKILL.md       # /plan
+│   ├── preview/SKILL.md    # /preview
+│   ├── status/SKILL.md     # /status
+│   ├── test/SKILL.md       # /test
+│   └── ui-ux/SKILL.md      # /ui-ux-pro-max
 ├── .agent/                       # Core system (unchanged)
 │   ├── ARCHITECTURE.md           # System map
 │   ├── rules/GEMINI.md           # Core rules
@@ -167,7 +167,7 @@ AI: 🤖 Using @frontend-specialist...
 |----------|-------------|
 | **npm / npx** | Runs `npx @giorgioeab/gemini-skills install` → installs 12 skills to `~/.agents/skills/` |
 | **Gemini CLI / Antigravity** | Reads `GEMINI.md` → imports `.agent/rules/GEMINI.md` + `.agent/ARCHITECTURE.md` |
-| **VS Code / GitHub Copilot** | Discovers `skills/antigravity-*/SKILL.md` via Skills CLI |
+| **VS Code / GitHub Copilot** | Discovers `skills/*/SKILL.md` via Skills CLI |
 | **Cursor** | Same as VS Code — uses Skills CLI |
 | **Claude Code** | Same as VS Code — uses Skills CLI |
 

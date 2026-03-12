@@ -1,5 +1,5 @@
 ---
-name: antigravity-test
+name: test
 description: Use this skill when generating tests, running test suites, checking test coverage, or implementing test-driven development. Triggers with /test. Generates unit, integration, and E2E tests using Jest, Vitest, or Playwright. Follows Arrange-Act-Assert pattern, mocks external dependencies, identifies edge cases, and provides coverage reports. Use when the user wants to test a file, feature, or run the full test suite.
 ---
 

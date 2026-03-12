@@ -9,18 +9,18 @@ const PACKAGE_ROOT = path.resolve(__dirname, "..");
 const SOURCE_SKILLS = path.join(PACKAGE_ROOT, "skills");
 
 const SKILL_NAMES = [
-  "antigravity-core",
-  "antigravity-brainstorm",
-  "antigravity-create",
-  "antigravity-debug",
-  "antigravity-deploy",
-  "antigravity-enhance",
-  "antigravity-orchestrate",
-  "antigravity-plan",
-  "antigravity-preview",
-  "antigravity-status",
-  "antigravity-test",
-  "antigravity-ui-ux",
+  "core",
+  "brainstorm",
+  "create",
+  "debug",
+  "deploy",
+  "enhance",
+  "orchestrate",
+  "plan",
+  "preview",
+  "status",
+  "test",
+  "ui-ux",
 ];
 
 const command = process.argv[2];
@@ -59,8 +59,8 @@ function install() {
     const skillSrc = path.join(SOURCE_SKILLS, name, "SKILL.md");
     fs.copyFileSync(skillSrc, path.join(dest, "SKILL.md"));
 
-    // Copy .agent/ into antigravity-core only (shared core)
-    if (name === "antigravity-core") {
+    // Copy .agent/ into core only (shared core)
+    if (name === "core") {
       const agentSrc = path.join(PACKAGE_ROOT, ".agent");
       copyDirSync(agentSrc, path.join(dest, ".agent"));
       console.log(`  ✅ ${name}/ (SKILL.md + .agent/)`);
@@ -70,20 +70,20 @@ function install() {
   }
 
   console.log("\n✅ Installed 12 skills successfully!");
-  console.log(`   Location: ${SKILLS_ROOT}/antigravity-*/\n`);
+  console.log(`   Location: ${SKILLS_ROOT}/\n`);
   console.log("📁 Skills installed:");
-  console.log("   antigravity-core        → Agent routing, Socratic Gate, clean code");
-  console.log("   antigravity-brainstorm  → /brainstorm workflow");
-  console.log("   antigravity-create      → /create workflow");
-  console.log("   antigravity-debug       → /debug workflow");
-  console.log("   antigravity-deploy      → /deploy workflow");
-  console.log("   antigravity-enhance     → /enhance workflow");
-  console.log("   antigravity-orchestrate → /orchestrate workflow");
-  console.log("   antigravity-plan        → /plan workflow");
-  console.log("   antigravity-preview     → /preview workflow");
-  console.log("   antigravity-status      → /status workflow");
-  console.log("   antigravity-test        → /test workflow");
-  console.log("   antigravity-ui-ux       → /ui-ux-pro-max workflow");
+  console.log("   core        → Agent routing, Socratic Gate, clean code");
+  console.log("   brainstorm  → /brainstorm workflow");
+  console.log("   create      → /create workflow");
+  console.log("   debug       → /debug workflow");
+  console.log("   deploy      → /deploy workflow");
+  console.log("   enhance     → /enhance workflow");
+  console.log("   orchestrate → /orchestrate workflow");
+  console.log("   plan        → /plan workflow");
+  console.log("   preview     → /preview workflow");
+  console.log("   status      → /status workflow");
+  console.log("   test        → /test workflow");
+  console.log("   ui-ux       → /ui-ux-pro-max workflow");
 }
 
 function uninstall() {
@@ -96,9 +96,9 @@ function uninstall() {
     }
   }
   if (removed === 0) {
-    console.log("ℹ️  Nothing to remove. No antigravity skills installed.");
+    console.log("ℹ️  Nothing to remove. No gemini-skills installed.");
   } else {
-    console.log(`🗑️  Removed ${removed} antigravity skill(s) from ~/.agents/skills/`);
+    console.log(`🗑️  Removed ${removed} skill(s) from ~/.agents/skills/`);
   }
 }
 
@@ -123,18 +123,18 @@ function status() {
 
 function list() {
   console.log("Available skills:\n");
-  console.log("  antigravity-core         Agent routing, Socratic Gate, clean code");
-  console.log("  antigravity-brainstorm   /brainstorm — explore ideas before coding");
-  console.log("  antigravity-create       /create — create new applications");
-  console.log("  antigravity-debug        /debug — systematic bug investigation");
-  console.log("  antigravity-deploy       /deploy — production deployment");
-  console.log("  antigravity-enhance      /enhance — improve existing code");
-  console.log("  antigravity-orchestrate  /orchestrate — multi-agent coordination");
-  console.log("  antigravity-plan         /plan — project planning (no code)");
-  console.log("  antigravity-preview      /preview — local dev server management");
-  console.log("  antigravity-status       /status — project progress report");
-  console.log("  antigravity-test         /test — generate and run tests");
-  console.log("  antigravity-ui-ux        /ui-ux-pro-max — design with 50+ styles");
+  console.log("  core         Agent routing, Socratic Gate, clean code");
+  console.log("  brainstorm   /brainstorm — explore ideas before coding");
+  console.log("  create       /create — create new applications");
+  console.log("  debug        /debug — systematic bug investigation");
+  console.log("  deploy       /deploy — production deployment");
+  console.log("  enhance      /enhance — improve existing code");
+  console.log("  orchestrate  /orchestrate — multi-agent coordination");
+  console.log("  plan         /plan — project planning (no code)");
+  console.log("  preview      /preview — local dev server management");
+  console.log("  status       /status — project progress report");
+  console.log("  test         /test — generate and run tests");
+  console.log("  ui-ux        /ui-ux-pro-max — design with 50+ styles");
 }
 
 function help() {
@@ -143,7 +143,7 @@ gemini-skills — 12 AI Agent Skills (20 agents, 37 domain skills, 11 slash comm
 
 Usage:
   npx @giorgioeab/gemini-skills install [--force]   Install 12 skills to ~/.agents/skills/
-  npx @giorgioeab/gemini-skills uninstall            Remove all antigravity skills
+  npx @giorgioeab/gemini-skills uninstall            Remove all skills
   npx @giorgioeab/gemini-skills status               Check which skills are installed
   npx @giorgioeab/gemini-skills list                 List available skills
   npx @giorgioeab/gemini-skills help                 Show this help

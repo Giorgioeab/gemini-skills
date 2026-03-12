@@ -1,5 +1,5 @@
 ---
-name: antigravity-plan
+name: plan
 description: Use this skill when planning a project, creating task breakdowns, or defining architecture before implementation. Triggers with /plan. Uses the project-planner agent to create a PLAN-{task-slug}.md file with task breakdown, agent assignments, and verification checklist. NO CODE is written — only the plan file. Use before /create or /orchestrate to establish a clear roadmap.
 ---
 

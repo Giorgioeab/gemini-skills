@@ -1,5 +1,5 @@
 ---
-name: antigravity-deploy
+name: deploy
 description: Use this skill when deploying applications to production, running pre-deployment checks, setting up CI/CD pipelines, or managing releases. Triggers with /deploy. Provides pre-flight checklist (TypeScript, ESLint, tests, security, bundle size), deployment flow with health checks, rollback support, and multi-platform deployment (Vercel, Railway, Fly.io, Docker). Handles preview/staging deployments and production releases.
 ---
 

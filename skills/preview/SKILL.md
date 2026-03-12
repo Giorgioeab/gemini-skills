@@ -1,5 +1,5 @@
 ---
-name: antigravity-preview
+name: preview
 description: Use this skill when starting, stopping, or checking the status of a local development preview server. Triggers with /preview. Manages local dev servers with auto-detection of project type (Next.js, React, Vue, etc.), port conflict resolution, and health checking. Use when the user wants to see their changes running locally.
 ---
 
